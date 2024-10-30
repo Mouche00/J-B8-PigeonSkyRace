@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${mongodb.user}:${mongodb.password}@localhost:27017/${mongodb.db}?authSource=admin
+#      host: localhost
+#      port: 27017
+#      database: ${MONGODB_DATABASE}
+#      username: ${MONGODB_USER}
+#      password: ${MONGODB_PASSWORD}
