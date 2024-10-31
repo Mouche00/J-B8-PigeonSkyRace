@@ -3,29 +3,28 @@ package org.ioc.jb8pigeonskyrace.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.ioc.jb8pigeonskyrace.utils.enums.Gender;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "pigeons")
 @Data
-public class Pigeon {
+@Document(collation = "rankings")
+public class Ranking {
     @Id
     private String id;
 
-    private String bandNumber;
-    private Gender gender;
-    private String color;
-    private String image;
+    private LocalTime startTime;
+    private double distance;
+    private double adjustedSpeed;
+    private double score;
 
     @DBRef
-    private Breeder breeder;
+    private Pigeon pigeon;
 
     @DBRef
-    private List<Ranking> rankings;
+    private Race race;
 }
