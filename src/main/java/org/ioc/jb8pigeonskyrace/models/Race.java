@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @Document(collection = "races")
@@ -22,4 +23,7 @@ public class Race {
 
     @DBRef
     private Competition competition;
+
+    @DBRef
+    private List<Ranking> rankings;
 }
