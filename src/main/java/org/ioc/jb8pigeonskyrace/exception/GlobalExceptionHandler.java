@@ -25,4 +25,9 @@ public class GlobalExceptionHandler {
     public ApiResponse<Object> handleResponseNotFoundException(ResponseNotFoundException ex, HttpServletRequest request) {
         return ResponseUtil.error(Arrays.asList(ex.getMessage()), "Response data not found", 204, request.getRequestURI());
     }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ApiResponse<Object> handleAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
+        return ResponseUtil.error(Arrays.asList(ex.getMessage()), "Unauthorized", 401, request.getRequestURI());
+    }
 }

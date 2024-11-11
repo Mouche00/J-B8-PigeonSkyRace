@@ -1,8 +1,11 @@
 package org.ioc.jb8pigeonskyrace.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.ioc.jb8pigeonskyrace.dtos.PigeonDTO;
-import org.ioc.jb8pigeonskyrace.models.Pigeon;
+import org.ioc.jb8pigeonskyrace.exception.AuthenticationException;
 import org.ioc.jb8pigeonskyrace.services.PigeonService;
+import org.ioc.jb8pigeonskyrace.utils.ApiResponse;
+import org.ioc.jb8pigeonskyrace.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,20 +24,25 @@ public class PigeonController {
     }
 
     @PostMapping("save")
-    public ResponseEntity<PigeonDTO> save(@RequestBody PigeonDTO pigeonDTO) {
-        PigeonDTO createdPigeon = pigeonService.save(pigeonDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPigeon);
+    public ResponseEntity<ApiResponse<PigeonDTO>> save(@RequestBody PigeonDTO pigeonDTO, HttpServletRequest request) {
+        String breederId = (String) request.getSession().getAttribute("breederId");
+//        if(breederId == null) {
+//            throw new AuthenticationException("Breeder is not logged");
+//        }
+        PigeonDTO createdPigeon = pigeonService.save(pigeonDTO.withBreederId(breederId));
+        return ResponseEntity.ok(ResponseUtil.success(createdPigeon, "Pigeon saved successfully", request.getRequestURI()));
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<PigeonDTO> findAll() {
-        return pigeonService.findAll();
+    public ResponseEntity<ApiResponse<List<PigeonDTO>>> findAll(HttpServletRequest request) {
+        return ResponseEntity.ok(ResponseUtil.success(pigeonService.findAll(), "Pigeons retrieved successfully", request.getRequestURI()));
     }
 
     @PostMapping("save-all")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<PigeonDTO> saveAll(@RequestBody List<PigeonDTO> pigeonDTOS) {
-        return pigeonService.saveAll(pigeonDTOS);
+    public ResponseEntity<ApiResponse<List<PigeonDTO>>> saveAll(@RequestBody List<PigeonDTO> pigeonDTOs, HttpServletRequest request) {
+        String breederId = (String) request.getSession().getAttribute("breederId");
+        pigeonDTOs = pigeonDTOs.stream().map(pigeonDTO -> pigeonDTO.withBreederId(breederId)).toList();
+        return ResponseEntity.ok(ResponseUtil.success(pigeonService.saveAll(pigeonDTOs), "Pigeons saved successfully", request.getRequestURI()));
     }
 }
