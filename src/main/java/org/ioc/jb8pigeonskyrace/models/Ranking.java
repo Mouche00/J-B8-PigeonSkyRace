@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Document(collation = "rankings")
+@Document(collection = "rankings")
 public class Ranking {
     @Id
     private String id;

@@ -1,5 +1,8 @@
 package org.ioc.jb8pigeonskyrace.utils;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 public class ApiResponse<T> {

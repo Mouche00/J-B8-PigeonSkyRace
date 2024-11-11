@@ -27,7 +27,7 @@ public class BreederController {
     public ResponseEntity<ApiResponse<Breeder>> register(@RequestBody Breeder breeder, HttpServletRequest request) {
         request.getSession().setAttribute("breederId", breeder.getId());
         breederAuthService.register(breeder);
-        return ResponseEntity.ok(ResponseUtil.success(breeder, "Breeder registred successfully", request.getRequestURI()));
+        return ResponseEntity.ok(ResponseUtil.success(breeder, "Breeder registered successfully", request.getRequestURI()));
     }
 
     @PostMapping("/login")
@@ -37,7 +37,7 @@ public class BreederController {
         if (breederAuthService.login(username, password)) {
             Breeder breeder = breederRepository.findByUsername(username);
             request.getSession().setAttribute("breederId", breeder.getId());
-            return ResponseEntity.ok(ResponseUtil.success(breeder, "Breeder Loged in successfully", request.getRequestURI()));
+            return ResponseEntity.ok(ResponseUtil.success(breeder, "Breeder logged in successfully", request.getRequestURI()));
         } else {
             throw new ResourceNotFoundException("Breeder Username or password not valid" );
         }
