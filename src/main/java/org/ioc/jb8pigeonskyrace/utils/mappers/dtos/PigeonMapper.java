@@ -11,14 +11,14 @@ import org.mapstruct.factory.Mappers;
 public interface PigeonMapper {
     PigeonMapper INSTANCE = Mappers.getMapper(PigeonMapper.class);
 
-    @Mappings({
-        @Mapping(target = "breederId", source = "breeder.id")
-    })
+    // ResponseDTO
     PigeonDTO toDTO(Pigeon pigeon);
 
+
+    // RequestDTO
     @Mappings({
         @Mapping(target = "id", ignore = true),
-        @Mapping(target = "breeder.id", source = "breederId")
+        @Mapping(target = "bandNumber", ignore = true),
     })
     Pigeon toPigeon(PigeonDTO pigeonDTO);
 }

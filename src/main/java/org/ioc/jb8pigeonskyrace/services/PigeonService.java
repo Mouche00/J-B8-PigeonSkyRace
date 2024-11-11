@@ -8,4 +8,5 @@ public interface PigeonService {
     PigeonDTO save(PigeonDTO pigeonDTO);
     List<PigeonDTO> saveAll(List<PigeonDTO> pigeonsDTOs);
     List<PigeonDTO> findAll();
+    PigeonDTO findById(String id);
 }

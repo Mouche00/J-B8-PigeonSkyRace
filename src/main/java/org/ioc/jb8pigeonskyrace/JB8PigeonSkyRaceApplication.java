@@ -11,5 +11,4 @@ public class JB8PigeonSkyRaceApplication {
     public static void main(String[] args) {
         SpringApplication.run(JB8PigeonSkyRaceApplication.class, args);
     }
-
 }
