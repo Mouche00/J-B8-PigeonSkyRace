@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Document(collation = "breeders")
+@Document(collection = "breeders")
 public class Breeder {
     @Id
     private String id;
