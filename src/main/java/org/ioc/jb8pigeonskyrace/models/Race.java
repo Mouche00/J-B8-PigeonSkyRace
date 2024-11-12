@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -17,9 +18,9 @@ public class Race {
     private String name;
     private double latitude;
     private double longitude;
-    private LocalTime startTime;
-    private double targetDistance;
-    private LocalDate closedAt;
+    private LocalDateTime startDate;
+    private double avgDistance;
+    private LocalDateTime closedAt;
 
     @DBRef
     private Competition competition;
