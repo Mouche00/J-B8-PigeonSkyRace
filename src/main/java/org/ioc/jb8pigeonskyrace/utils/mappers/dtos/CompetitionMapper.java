@@ -19,5 +19,4 @@ public interface CompetitionMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateCompetitionFromDto(CompetitionDTO dto, @MappingTarget Competition entity);
-
 }

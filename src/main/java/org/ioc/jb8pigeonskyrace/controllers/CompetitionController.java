@@ -2,7 +2,6 @@ package org.ioc.jb8pigeonskyrace.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.ioc.jb8pigeonskyrace.dtos.CompetitionDTO;
-import org.ioc.jb8pigeonskyrace.dtos.PigeonDTO;
 import org.ioc.jb8pigeonskyrace.services.CompetitionService;
 import org.ioc.jb8pigeonskyrace.utils.ApiResponse;
 import org.ioc.jb8pigeonskyrace.utils.ResponseUtil;

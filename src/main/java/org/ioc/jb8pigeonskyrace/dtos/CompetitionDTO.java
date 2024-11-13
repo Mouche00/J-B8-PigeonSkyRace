@@ -1,13 +1,24 @@
 package org.ioc.jb8pigeonskyrace.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
-public record CompetitionDTO (String id,
-                              String name,
-                              @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-                              LocalDateTime closedAt,
-                              List<RaceDTO> races) {
+@Builder
+public record CompetitionDTO(
+        String id,
+        @NotBlank String name,
+        @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+        LocalDateTime closedAt,
+        List<RaceDTO> races) {
+
+    public CompetitionDTO withRaceIds(List<String> raceIds) {
+        List<RaceDTO> raceDTOs = raceIds.stream()
+                .map(raceId -> RaceDTO.builder().id(raceId).build())
+                .toList();
+        return new CompetitionDTO(id, name, closedAt, raceDTOs);
+    }
 }
