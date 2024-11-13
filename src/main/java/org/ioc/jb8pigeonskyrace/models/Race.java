@@ -19,8 +19,11 @@ public class Race {
     private String name;
     private Coordinates startCoordinates;
     private LocalDateTime startDate;
+    private double targetDistance;
+    private double tolerance;
     private double avgDistance;
     private LocalDateTime closedAt;
+    private boolean autoAdj;
 
     @DBRef
     private Competition competition;
