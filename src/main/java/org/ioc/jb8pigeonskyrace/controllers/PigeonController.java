@@ -26,9 +26,7 @@ public class PigeonController {
     @PostMapping("save")
     public ResponseEntity<ApiResponse<PigeonDTO>> save(@RequestBody PigeonDTO pigeonDTO, HttpServletRequest request) {
         String breederId = (String) request.getSession().getAttribute("breederId");
-//        if(breederId == null) {
-//            throw new AuthenticationException("Breeder is not logged");
-//        }
+
         PigeonDTO createdPigeon = pigeonService.save(pigeonDTO.withBreederId(breederId));
         return ResponseEntity.ok(ResponseUtil.success(createdPigeon, "Pigeon saved successfully", request.getRequestURI()));
     }
