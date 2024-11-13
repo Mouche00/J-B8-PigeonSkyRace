@@ -1,6 +1,7 @@
 package org.ioc.jb8pigeonskyrace.services.implementations;
 
 import org.ioc.jb8pigeonskyrace.dtos.CompetitionDTO;
+import org.ioc.jb8pigeonskyrace.exception.ResourceNotFoundException;
 import org.ioc.jb8pigeonskyrace.models.Competition;
 import org.ioc.jb8pigeonskyrace.repositories.CompetitionRepository;
 import org.ioc.jb8pigeonskyrace.services.CompetitionService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompetitionServiceImpl implements CompetitionService {
@@ -29,24 +31,43 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public CompetitionDTO update(CompetitionDTO competitionDTO) {
-        Competition competition = competitionMapper.toCompetition(competitionDTO);
+    public CompetitionDTO update(String id, CompetitionDTO competitionDTO) {
+        Competition competition = findEntityById(id);
+        competitionMapper.updateCompetitionFromDto(competitionDTO, competition);
         competition = competitionRepository.save(competition);
         return competitionMapper.toDTO(competition);
     }
 
-    @Override
-    public List<CompetitionDTO> saveAll(List<CompetitionDTO> competitionDTOs) {
-        return List.of();
-    }
-
-    @Override
-    public List<CompetitionDTO> findAll() {
-        return List.of();
+    public Competition findEntityById(String id) {
+        Optional<Competition> competition = competitionRepository.findById(id);
+        if(competition.isPresent()){
+            return competition.get();
+        } else {
+            throw new ResourceNotFoundException("Competition not found");
+        }
     }
 
     @Override
     public CompetitionDTO findById(String id) {
-        return null;
+        Optional<Competition> competition = competitionRepository.findById(id);
+        if(competition.isPresent()){
+            return competition.map(competitionMapper::toDTO).orElse(null);
+        } else {
+            throw new ResourceNotFoundException("Competition not found");
+        }
+    }
+
+    @Override
+    public List<CompetitionDTO> saveAll(List<CompetitionDTO> competitionDTOs) {
+        return competitionDTOs.stream()
+                .map(this::save)
+                .toList();
+    }
+
+    @Override
+    public List<CompetitionDTO> findAll() {
+        return competitionRepository.findAll().stream()
+                .map(competitionMapper::toDTO)
+                .toList();
     }
 }

@@ -2,9 +2,7 @@ package org.ioc.jb8pigeonskyrace.utils.mappers.dtos;
 
 import org.ioc.jb8pigeonskyrace.dtos.CompetitionDTO;
 import org.ioc.jb8pigeonskyrace.models.Competition;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -18,4 +16,8 @@ public interface CompetitionMapper {
             @Mapping(target = "races", ignore = true)
     })
     Competition toCompetition(CompetitionDTO competitionDTO);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateCompetitionFromDto(CompetitionDTO dto, @MappingTarget Competition entity);
+
 }
