@@ -1,6 +1,7 @@
 package org.ioc.jb8pigeonskyrace.dtos;
 
 import lombok.Builder;
+import org.ioc.jb8pigeonskyrace.utils.Coordinates;
 
 import java.util.List;
 
@@ -9,8 +10,7 @@ public record BreederDTO(String id,
                          String username,
                          String password,
                          String loftName,
-                         double loftLatitude,
-                         double loftLongitude,
+                         Coordinates loftCoordinates,
                          double finalScore,
                          List<PigeonDTO> pigeons) {
 }

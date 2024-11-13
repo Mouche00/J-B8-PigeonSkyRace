@@ -26,7 +26,6 @@ public class PigeonController {
     @PostMapping("save")
     public ResponseEntity<ApiResponse<PigeonDTO>> save(@RequestBody PigeonDTO pigeonDTO, HttpServletRequest request) {
         String breederId = (String) request.getSession().getAttribute("breederId");
-
         PigeonDTO createdPigeon = pigeonService.save(pigeonDTO.withBreederId(breederId));
         return ResponseEntity.ok(ResponseUtil.success(createdPigeon, "Pigeon saved successfully", request.getRequestURI()));
     }
@@ -37,7 +36,6 @@ public class PigeonController {
     }
 
     @PostMapping("save-all")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ApiResponse<List<PigeonDTO>>> saveAll(@RequestBody List<PigeonDTO> pigeonDTOs, HttpServletRequest request) {
         String breederId = (String) request.getSession().getAttribute("breederId");
         pigeonDTOs = pigeonDTOs.stream().map(pigeonDTO -> pigeonDTO.withBreederId(breederId)).toList();

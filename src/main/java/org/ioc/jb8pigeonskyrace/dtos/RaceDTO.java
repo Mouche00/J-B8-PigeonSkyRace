@@ -12,10 +12,10 @@ import java.util.List;
 public record RaceDTO(
         String id,
         @NotBlank String name,
-        @NotNull double latitude,
-        @NotNull double longitude,
-        @NotNull LocalTime startTime,
+        @NotNull Coordinates startCoordinates,
+        @NotNull LocalDateTime startDate,
         @NotNull double targetDistance,
+        double avgDistance,
         @NotNull LocalDate closedAt,
         CompetitionDTO competition,
         List<RankingDTO> rankings) {

@@ -11,7 +11,8 @@ import java.util.List;
 public record CompetitionDTO(
         String id,
         @NotBlank String name,
-        @NotNull LocalDate closedAt,
+        @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+        LocalDateTime closedAt,
         List<RaceDTO> races) {
 
     public CompetitionDTO withRaceIds(List<String> raceIds) {

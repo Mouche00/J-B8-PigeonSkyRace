@@ -9,5 +9,6 @@ spring:
       username: ${MONGODB_USER}
       password: ${MONGODB_PASSWORD}
       authentication-database: ${MONGODB_AUTH:admin}
+
 server:
    port: ${SERVER_PORT:8080}

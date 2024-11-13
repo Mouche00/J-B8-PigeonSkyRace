@@ -14,7 +14,6 @@ public interface PigeonMapper {
     // ResponseDTO
     PigeonDTO toDTO(Pigeon pigeon);
 
-
     // RequestDTO
     @Mappings({
         @Mapping(target = "id", ignore = true),
