@@ -3,6 +3,7 @@ package org.ioc.jb8pigeonskyrace.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.ioc.jb8pigeonskyrace.utils.Coordinates;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,8 +21,7 @@ public class Breeder {
     private String username;
     private String password;
     private String loftName;
-    private double loftLatitude;
-    private double loftLongitude;
+    private Coordinates loftCoordinates;
     private double finalScore;
 
     @DBRef
