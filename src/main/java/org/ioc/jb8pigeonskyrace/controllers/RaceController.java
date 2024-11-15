@@ -2,6 +2,7 @@ package org.ioc.jb8pigeonskyrace.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.ioc.jb8pigeonskyrace.dtos.BreederDTO;
+import org.ioc.jb8pigeonskyrace.dtos.CompetitionDTO;
 import org.ioc.jb8pigeonskyrace.dtos.RaceDTO;
 import org.ioc.jb8pigeonskyrace.models.Breeder;
 import org.ioc.jb8pigeonskyrace.services.RaceService;
@@ -33,5 +34,21 @@ public class RaceController {
                 "Race saved successfully",
                 request.getRequestURI()
         ));
+    }
+
+    @PatchMapping("close/{id}")
+    public ResponseEntity<ApiResponse<RaceDTO>> update(@PathVariable String id, HttpServletRequest request) {
+        RaceDTO raceDTO = raceService.close(id);
+        return ResponseEntity.ok(ResponseUtil.success(raceDTO, "Race closed successfully", request.getRequestURI()));
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<RaceDTO>>> findAll(HttpServletRequest request) {
+        return ResponseEntity.ok(ResponseUtil.success(raceService.findAll(), "Races retrieved successfully", request.getRequestURI()));
+    }
+
+    @PostMapping("save-all")
+    public ResponseEntity<ApiResponse<List<RaceDTO>>> saveAll(@RequestBody List<RaceDTO> raceDTOs, HttpServletRequest request) {
+        return ResponseEntity.ok(ResponseUtil.success(raceService.saveAll(raceDTOs), "Races saved successfully", request.getRequestURI()));
     }
 }
