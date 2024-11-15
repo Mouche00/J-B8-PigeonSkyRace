@@ -1,9 +1,14 @@
 package org.ioc.jb8pigeonskyrace.services.implementations;
 
+
+import org.ioc.jb8pigeonskyrace.dtos.PigeonDTO;
+import org.ioc.jb8pigeonskyrace.models.Pigeon;
+
 import org.ioc.jb8pigeonskyrace.dtos.BreederDTO;
 import org.ioc.jb8pigeonskyrace.dtos.RaceDTO;
 import org.ioc.jb8pigeonskyrace.exception.ResourceNotFoundException;
 import org.ioc.jb8pigeonskyrace.models.Breeder;
+
 import org.ioc.jb8pigeonskyrace.models.Race;
 import org.ioc.jb8pigeonskyrace.repositories.RaceRepository;
 import org.ioc.jb8pigeonskyrace.services.RaceService;
@@ -14,7 +19,9 @@ import org.ioc.jb8pigeonskyrace.utils.records.Coordinates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +39,7 @@ public class RaceServiceImpl implements RaceService {
         this.raceMapper = raceMapper;
         this.geoUtil = geoUtil;
     }
+
 
     @Override
     public RaceDTO save(RaceDTO raceDTO) {
@@ -90,8 +98,10 @@ public class RaceServiceImpl implements RaceService {
         return breeders.stream().mapToDouble(loft -> geoUtil.haversine(raceDTO.startCoordinates(), loft.getLoftCoordinates())).average().orElse(0.0);
     }
 
+
     @Override
     public List<Breeder> getParticipatingBreeders(String id) {
         return raceRepository.findDistinctLoftsByRaceId(id);
+
     }
 }

@@ -1,6 +1,16 @@
 package org.ioc.jb8pigeonskyrace.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+
+import org.ioc.jb8pigeonskyrace.dtos.CompetitionDTO;
+import org.ioc.jb8pigeonskyrace.dtos.RaceDTO;
+import org.ioc.jb8pigeonskyrace.models.Competition;
+import org.ioc.jb8pigeonskyrace.services.CompetitionService;
+import org.ioc.jb8pigeonskyrace.services.RaceService;
+import org.ioc.jb8pigeonskyrace.utils.ApiResponse;
+import org.ioc.jb8pigeonskyrace.utils.ResponseUtil;
+import org.ioc.jb8pigeonskyrace.utils.mappers.dtos.CompetitionMapper;
+
 import org.ioc.jb8pigeonskyrace.dtos.BreederDTO;
 import org.ioc.jb8pigeonskyrace.dtos.CompetitionDTO;
 import org.ioc.jb8pigeonskyrace.dtos.RaceDTO;
@@ -9,6 +19,7 @@ import org.ioc.jb8pigeonskyrace.services.RaceService;
 import org.ioc.jb8pigeonskyrace.utils.ApiResponse;
 import org.ioc.jb8pigeonskyrace.utils.ResponseUtil;
 import org.ioc.jb8pigeonskyrace.utils.mappers.dtos.BreederMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +35,9 @@ public class RaceController {
     @Autowired
     private RaceService raceService;
 
+    @Autowired
+    private CompetitionService competitionService;
+
     @PostMapping("save")
     public ResponseEntity<ApiResponse<RaceDTO>> save(
             @RequestBody RaceDTO raceDTO,
@@ -36,6 +50,7 @@ public class RaceController {
         ));
     }
 
+
     @PatchMapping("close/{id}")
     public ResponseEntity<ApiResponse<RaceDTO>> update(@PathVariable String id, HttpServletRequest request) {
         RaceDTO raceDTO = raceService.close(id);
@@ -46,6 +61,7 @@ public class RaceController {
     public ResponseEntity<ApiResponse<List<RaceDTO>>> findAll(HttpServletRequest request) {
         return ResponseEntity.ok(ResponseUtil.success(raceService.findAll(), "Races retrieved successfully", request.getRequestURI()));
     }
+
 
     @PostMapping("save-all")
     public ResponseEntity<ApiResponse<List<RaceDTO>>> saveAll(@RequestBody List<RaceDTO> raceDTOs, HttpServletRequest request) {

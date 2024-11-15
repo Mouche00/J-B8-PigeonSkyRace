@@ -23,9 +23,16 @@ public record RaceDTO(
         double tolerance,
         double avgDistance,
         boolean autoAdj,
-
         @NotNull LocalDateTime closedAt,
         @RefExists(collection = "competitions")
-        CompetitionDTO competition,
-        List<RankingDTO> rankings) {
+        List<RankingDTO> rankings ,
+        CompetitionDTO competition){
+
+    public RaceDTO withCompetitionId(String competitionId) {
+        return new RaceDTO(id, name, startCoordinates, startDate, targetDistance,avgDistance, closedAt,rankings,
+                CompetitionDTO.builder().id(competitionId).build());
+    }
+
+    
+
 }
