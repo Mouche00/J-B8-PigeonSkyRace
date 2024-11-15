@@ -13,7 +13,6 @@ public interface CompetitionMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "races", ignore = true)
     })
     Competition toCompetition(CompetitionDTO competitionDTO);
 

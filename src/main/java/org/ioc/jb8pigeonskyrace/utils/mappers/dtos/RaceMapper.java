@@ -15,8 +15,6 @@ public interface RaceMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "rankings", ignore = true),
-            @Mapping(target = "competition", ignore = true)
     })
     Race toRace(RaceDTO raceDTO);
 }
