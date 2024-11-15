@@ -1,12 +1,14 @@
 package org.ioc.jb8pigeonskyrace.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.ioc.jb8pigeonskyrace.dtos.PigeonDTO;
 import org.ioc.jb8pigeonskyrace.exception.AuthenticationException;
 import org.ioc.jb8pigeonskyrace.services.PigeonService;
 import org.ioc.jb8pigeonskyrace.utils.ApiResponse;
 import org.ioc.jb8pigeonskyrace.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +26,7 @@ public class PigeonController {
     }
 
     @PostMapping("save")
-    public ResponseEntity<ApiResponse<PigeonDTO>> save(@RequestBody PigeonDTO pigeonDTO, HttpServletRequest request) {
+    public ResponseEntity<ApiResponse<PigeonDTO>> save(@RequestBody @Valid PigeonDTO pigeonDTO, HttpServletRequest request) {
         String breederId = (String) request.getSession().getAttribute("breederId");
         PigeonDTO createdPigeon = pigeonService.save(pigeonDTO.withBreederId(breederId));
         return ResponseEntity.ok(ResponseUtil.success(createdPigeon, "Pigeon saved successfully", request.getRequestURI()));
