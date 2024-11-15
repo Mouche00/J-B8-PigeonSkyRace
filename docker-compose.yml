@@ -14,6 +14,7 @@ services:
       - "27017:27017"
     volumes:
       - db:/data/db
+      - ./seeder.js:/docker-entrypoint-initdb.d/seeder.js:ro
 
 volumes:
   db:

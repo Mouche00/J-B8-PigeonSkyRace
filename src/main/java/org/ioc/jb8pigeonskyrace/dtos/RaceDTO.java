@@ -1,9 +1,11 @@
 package org.ioc.jb8pigeonskyrace.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import org.ioc.jb8pigeonskyrace.utils.Coordinates;
+import org.ioc.jb8pigeonskyrace.utils.annotations.RefExists;
+import org.ioc.jb8pigeonskyrace.utils.records.Coordinates;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,10 +17,14 @@ public record RaceDTO(
         String id,
         @NotBlank String name,
         @NotNull Coordinates startCoordinates,
-        @NotNull LocalDateTime startDate,
+        @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+        LocalDateTime startDate,
         @NotNull double targetDistance,
+        double tolerance,
         double avgDistance,
-        @NotNull LocalDate closedAt,
+        boolean autoAdj,
+        @NotNull LocalDateTime closedAt,
+        @RefExists(collection = "competitions")
         List<RankingDTO> rankings ,
         CompetitionDTO competition){
 
@@ -26,4 +32,7 @@ public record RaceDTO(
         return new RaceDTO(id, name, startCoordinates, startDate, targetDistance,avgDistance, closedAt,rankings,
                 CompetitionDTO.builder().id(competitionId).build());
     }
+
+    
+
 }

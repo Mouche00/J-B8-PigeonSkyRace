@@ -1,7 +1,7 @@
 package org.ioc.jb8pigeonskyrace.dtos;
 
 import lombok.Builder;
-import org.ioc.jb8pigeonskyrace.utils.Coordinates;
+import org.ioc.jb8pigeonskyrace.utils.records.Coordinates;
 
 import java.util.List;
 
