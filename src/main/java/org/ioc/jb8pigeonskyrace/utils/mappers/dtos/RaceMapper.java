@@ -1,10 +1,10 @@
 package org.ioc.jb8pigeonskyrace.utils.mappers.dtos;
 
+import org.ioc.jb8pigeonskyrace.dtos.CompetitionDTO;
 import org.ioc.jb8pigeonskyrace.dtos.RaceDTO;
+import org.ioc.jb8pigeonskyrace.models.Competition;
 import org.ioc.jb8pigeonskyrace.models.Race;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -15,8 +15,10 @@ public interface RaceMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "rankings", ignore = true),
-            @Mapping(target = "competition", ignore = true)
+            @Mapping(target = "rankings", ignore = true)
     })
     Race toRace(RaceDTO raceDTO);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateRaceFromDto(RaceDTO dto, @MappingTarget Race entity);
 }
