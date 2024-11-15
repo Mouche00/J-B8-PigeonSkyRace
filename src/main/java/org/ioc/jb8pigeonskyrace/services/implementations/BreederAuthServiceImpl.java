@@ -6,6 +6,7 @@ import org.ioc.jb8pigeonskyrace.models.Breeder;
 import org.ioc.jb8pigeonskyrace.repositories.BreederRepository;
 import org.ioc.jb8pigeonskyrace.services.BreederAuthService;
 import org.ioc.jb8pigeonskyrace.utils.PasswordUtil;
+import org.ioc.jb8pigeonskyrace.utils.mappers.dtos.BreederMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ import java.util.List;
 public class BreederAuthServiceImpl implements BreederAuthService {
     @Autowired
     private BreederRepository breederRepository;
+
+    @Autowired
+    private BreederMapper breederMapper;
 
 
     @Override
@@ -33,11 +37,11 @@ public class BreederAuthServiceImpl implements BreederAuthService {
         return false;
     }
 
-//    @Override
-//    public List<BreederDTO> findAll() {
-//        return breederRepository.findAll().stream()
-//                .map(raceMapper::toDTO)
-//                .toList();
-//    }
+    @Override
+    public List<BreederDTO> findAll() {
+        return breederRepository.findAll().stream()
+                .map(breederMapper::toDTO)
+                .toList();
+    }
 
 }

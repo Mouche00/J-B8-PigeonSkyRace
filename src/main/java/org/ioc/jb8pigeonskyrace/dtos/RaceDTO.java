@@ -29,7 +29,7 @@ public record RaceDTO(
         CompetitionDTO competition){
 
     public RaceDTO withCompetitionId(String competitionId) {
-        return new RaceDTO(id, name, startCoordinates, startDate, targetDistance,avgDistance, closedAt,rankings,
+        return new RaceDTO(id, name, startCoordinates, startDate, targetDistance,tolerance,avgDistance,autoAdj, closedAt,rankings,
                 CompetitionDTO.builder().id(competitionId).build());
     }
 

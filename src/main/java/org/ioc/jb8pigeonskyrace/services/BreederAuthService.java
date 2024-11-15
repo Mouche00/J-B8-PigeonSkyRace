@@ -9,5 +9,5 @@ import java.util.List;
 public interface BreederAuthService {
     String register(Breeder breeder);
     boolean login(String username, String password);
-//    List<BreederDTO> findAll();
+    List<BreederDTO> findAll();
 }
