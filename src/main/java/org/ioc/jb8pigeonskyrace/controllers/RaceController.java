@@ -35,9 +35,6 @@ public class RaceController {
     @Autowired
     private RaceService raceService;
 
-    @Autowired
-    private CompetitionService competitionService;
-
     @PostMapping("save")
     public ResponseEntity<ApiResponse<RaceDTO>> save(
             @RequestBody RaceDTO raceDTO,
@@ -52,7 +49,7 @@ public class RaceController {
 
 
     @PatchMapping("close/{id}")
-    public ResponseEntity<ApiResponse<RaceDTO>> update(@PathVariable String id, HttpServletRequest request) {
+    public ResponseEntity<ApiResponse<RaceDTO>> close(@PathVariable String id, HttpServletRequest request) {
         RaceDTO raceDTO = raceService.close(id);
         return ResponseEntity.ok(ResponseUtil.success(raceDTO, "Race closed successfully", request.getRequestURI()));
     }
@@ -66,5 +63,11 @@ public class RaceController {
     @PostMapping("save-all")
     public ResponseEntity<ApiResponse<List<RaceDTO>>> saveAll(@RequestBody List<RaceDTO> raceDTOs, HttpServletRequest request) {
         return ResponseEntity.ok(ResponseUtil.success(raceService.saveAll(raceDTOs), "Races saved successfully", request.getRequestURI()));
+    }
+
+    @PatchMapping("update/{id}")
+    public ResponseEntity<ApiResponse<RaceDTO>> update(@PathVariable String id, @RequestBody RaceDTO raceDTO, HttpServletRequest request) {
+        raceDTO = raceService.update(id, raceDTO);
+        return ResponseEntity.ok(ResponseUtil.success(raceDTO, "Race closed successfully", request.getRequestURI()));
     }
 }

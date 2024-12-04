@@ -43,4 +43,10 @@ public class CompetitionController {
     public ResponseEntity<ApiResponse<List<CompetitionDTO>>> saveAll(@RequestBody List<CompetitionDTO> competitionDTOS, HttpServletRequest request) {
         return ResponseEntity.ok(ResponseUtil.success(competitionService.saveAll(competitionDTOS), "Competitions saved successfully", request.getRequestURI()));
     }
+
+    @PatchMapping("close")
+    public ResponseEntity<ApiResponse<CompetitionDTO>> close(@PathVariable String id, @RequestBody CompetitionDTO competitionDTO, HttpServletRequest request) {
+        competitionDTO = competitionService.update(id, competitionDTO);
+        return ResponseEntity.ok(ResponseUtil.success(competitionDTO, "Competition closed successfully", request.getRequestURI()));
+    }
 }

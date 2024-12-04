@@ -9,8 +9,13 @@ spring:
       username: ${MONGODB_USER}
       password: ${MONGODB_PASSWORD}
       authentication-database: ${MONGODB_AUTH:admin}
+  servlet:
+    multipart:
+      enabled: true
+#      max-file: 10MB
+#      request-size: 10MB
 server:
    port: ${SERVER_PORT:8080}
-springdoc:
-  swagger-ui:
-    enabled: true
+#springdoc:
+#  swagger-ui:
+#    enabled: true

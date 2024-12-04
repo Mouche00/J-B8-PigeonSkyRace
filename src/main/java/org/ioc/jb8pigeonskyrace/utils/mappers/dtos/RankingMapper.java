@@ -9,6 +9,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface RankingMapper {
     RankingMapper INSTANCE = Mappers.getMapper(RankingMapper.class);
@@ -21,4 +23,7 @@ public interface RankingMapper {
 //            @Mapping(target = "race", source = "race")    // Map Race directly
     })
     Ranking toRanking(RankingDTO rankingDTO);
+
+    List<Ranking> toRankings(List<RankingDTO> rankingDTOs);
+    List<RankingDTO> toRankingDTOs(List<Ranking> rankings);
 }

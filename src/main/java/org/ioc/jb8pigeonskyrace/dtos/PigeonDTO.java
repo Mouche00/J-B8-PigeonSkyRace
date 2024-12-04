@@ -19,6 +19,4 @@ public record PigeonDTO(String id,
     public PigeonDTO withBreederId(String breederId) {
         return new PigeonDTO(id, bandNumber, gender, birthYear, color, image, BreederDTO.builder().id(breederId).build());
     }
-
-
 }

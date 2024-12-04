@@ -7,8 +7,10 @@ import org.ioc.jb8pigeonskyrace.repositories.CompetitionRepository;
 import org.ioc.jb8pigeonskyrace.services.CompetitionService;
 import org.ioc.jb8pigeonskyrace.utils.mappers.dtos.CompetitionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,11 +18,13 @@ import java.util.Optional;
 public class CompetitionServiceImpl implements CompetitionService {
     private final CompetitionRepository competitionRepository;
     private final CompetitionMapper competitionMapper;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    public CompetitionServiceImpl(CompetitionRepository competitionRepository, CompetitionMapper competitionMapper) {
+    public CompetitionServiceImpl(CompetitionRepository competitionRepository, CompetitionMapper competitionMapper, ApplicationEventPublisher eventPublisher) {
         this.competitionRepository = competitionRepository;
         this.competitionMapper = competitionMapper;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -38,23 +42,26 @@ public class CompetitionServiceImpl implements CompetitionService {
         return competitionMapper.toDTO(competition);
     }
 
+    @Override
+    public CompetitionDTO close(String id) {
+        Competition competition = findEntityById(id);
+        CompetitionDTO competitionDTO = CompetitionDTO.builder().closedAt(LocalDateTime.now()).build();
+        competitionMapper.updateCompetitionFromDto(competitionDTO, competition);
+        competition = competitionRepository.save(competition);
+        competitionDTO = competitionMapper.toDTO(competition);
+
+//        eventPublisher.publishEvent(new CompetitionClosedEvent(this, competitionDTO));
+        return competitionDTO;
+    }
+
     public Competition findEntityById(String id) {
-        Optional<Competition> competition = competitionRepository.findById(id);
-        if(competition.isPresent()){
-            return competition.get();
-        } else {
-            throw new ResourceNotFoundException("Competition not found");
-        }
+        return competitionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Competition not found with id: " + id));
     }
 
     @Override
     public CompetitionDTO findById(String id) {
-        Optional<Competition> competition = competitionRepository.findById(id);
-        if(competition.isPresent()){
-            return competition.map(competitionMapper::toDTO).orElse(null);
-        } else {
-            throw new ResourceNotFoundException("Competition not found");
-        }
+        return competitionMapper.toDTO(findEntityById(id));
     }
 
     @Override

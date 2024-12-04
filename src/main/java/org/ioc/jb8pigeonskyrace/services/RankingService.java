@@ -2,15 +2,17 @@ package org.ioc.jb8pigeonskyrace.services;
 
 import org.ioc.jb8pigeonskyrace.dtos.PigeonDTO;
 import org.ioc.jb8pigeonskyrace.dtos.RaceDTO;
+import org.ioc.jb8pigeonskyrace.dtos.RankingCSVDTO;
 import org.ioc.jb8pigeonskyrace.dtos.RankingDTO;
 import org.ioc.jb8pigeonskyrace.models.Ranking;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
 
 public interface RankingService {
     public RankingDTO addPigeonToRace(RankingDTO rankingDTO);
-    public List<RankingDTO> saveAll(File csvFile);
-
-    List<Ranking>  convertCSV(File file);
+    public List<RankingDTO> saveAll(RankingCSVDTO rankingCSVDTO);
+    List<RankingDTO> calculateAndRank(String raceId);
+    List<Ranking>  convertCSV(MultipartFile file);
 }

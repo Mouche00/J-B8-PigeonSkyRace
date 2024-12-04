@@ -8,7 +8,8 @@ import org.ioc.jb8pigeonskyrace.models.Competition;
 import org.ioc.jb8pigeonskyrace.services.BreederAuthService;
 import org.ioc.jb8pigeonskyrace.services.CompetitionService;
 import org.ioc.jb8pigeonskyrace.services.RaceService;
-import org.ioc.jb8pigeonskyrace.utils.Coordinates;
+import org.ioc.jb8pigeonskyrace.utils.records.Coordinates;
+import org.ioc.jb8pigeonskyrace.utils.records.Coordinates;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +49,7 @@ public class BootstrapData implements CommandLineRunner {
                     .startCoordinates(new Coordinates(40.7128, -74.0060))
                     .startDate(LocalDateTime.now().plusDays(i))
                     .targetDistance(500 + (i * 50))
-                    .closedAt(LocalDate.now().plusDays(i + 10))
+                    .closedAt(LocalDateTime.now().plusDays(i + 10))
                     .competition(savedCompetition)
                     .build();
 
